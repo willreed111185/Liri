@@ -1,0 +1,27 @@
+{
+  "name": "liri",
+  "version": "1.0.0",
+  "description": "siri knockoff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willreed111185/Liri.git"
+  },
+  "author": "me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willreed111185/Liri/issues"
+  },
+  "homepage": "https://github.com/willreed111185/Liri#readme",
+  "dependencies": {
+    "inquirer": "^3.3.0",
+    "lower-case": "^1.1.4",
+    "node-spotify-api": "^1.0.7",
+    "omdb": "^0.8.0",
+    "request": "^2.83.0",
+    "twitter": "^1.7.1"
+  }
+}
