@@ -98,34 +98,27 @@ function movieDB(){
 	console.log("+++++++++++++++++++++++++++++++++");
 	console.log("++++++++++++OMDB CODE++++++++++++");
 	console.log("+++++++++++++++++++++++++++++++++");
-	let omdb = require('omdb');
+	var request = require("request");
 	inquirer.prompt([
 	    {
 	      type: "input",
 	      message: "Which Movie Would You Like to Query?",
-	      name: "query"
+	      name: "queryMovie"
 	    }
 	])
 	.then(function(omdbResponse) {
-		console.log(omdbResponse.query);
-		omdb.search('saw', function(err, movies) {
-		    if(err) {
-		        return console.error(err);
-		    }
-		 
-		    if(movies.length < 1) {
-		        return console.log('No movies were found!');
-		    }
-		 
-		    movies.forEach(function(movie) {
-		        console.log('%s (%d)', movie.title, movie.year);
-		    });
-		 
-		    // Saw (2004) 
-		    // Saw II (2005) 
-		    // Saw III (2006) 
-		    // Saw IV (2007) 
-		    // ... 
-		});
+		request("http://www.omdbapi.com/?t="+omdbResponse.queryMovie+"&y=&plot=short&apikey=40e9cece", function(error, response, body) {
+			if (!error && response.statusCode === 200) {
+				let movieData = JSON.parse(body);
+				console.log("Movie Title:  ",movieData.Title);
+				console.log("Release Year: ",movieData.Year); 
+				console.log("IMDB Rating:  ",movieData.imdbRating);
+				console.log("R.T. Rating:  ",movieData.Ratings);
+				console.log("Country:      ",movieData.Country);
+				console.log("Language:     ",movieData.Language);
+				console.log("Actors:       ",movieData.Actors);
+				console.log("Plot:         ",movieData.Plot);
+			}
+  		});
 	})
 }
