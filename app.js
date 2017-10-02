@@ -108,37 +108,24 @@ function movieDB(){
 	])
 	.then(function(omdbResponse) {
 		let movieStr = omdbResponse.queryMovie.replace(/ /g, "+");
-		console.log(movieStr);
 		if (movieStr == ""){
-			request("http://www.omdbapi.com/?t=mr+nobody&y=&plot=short&apikey=40e9cece", function(error, response, body) {
-				if (!error && response.statusCode === 200) {
-					let movieData = JSON.parse(body);
-					console.log("You may want to check this movie out if you cannot decide:");
-					console.log("Movie Title:  ",movieData.Title);
-					console.log("Release Year: ",movieData.Year); 
-					console.log("IMDB Rating:  ",movieData.imdbRating);
-					console.log("R.T. Rating:  ",movieData.Ratings);
-					console.log("Country:      ",movieData.Country);
-					console.log("Language:     ",movieData.Language);
-					console.log("Actors:       ",movieData.Actors);
-					console.log("Plot:         ",movieData.Plot);
-				}
-			});
-		}else{
-			request("http://www.omdbapi.com/?t="+movieStr+"&y=&plot=short&apikey=40e9cece", function(error, response, body) {
-				if (!error && response.statusCode === 200) {
-					let movieData = JSON.parse(body);
-					console.log("Movie Title:  ",movieData.Title);
-					console.log("Release Year: ",movieData.Year); 
-					console.log("IMDB Rating:  ",movieData.imdbRating);
-					console.log("R.T. Rating:  ",movieData.Ratings);
-					console.log("Country:      ",movieData.Country);
-					console.log("Language:     ",movieData.Language);
-					console.log("Actors:       ",movieData.Actors);
-					console.log("Plot:         ",movieData.Plot);
-				}
-			});
+			movieStr="mr+nobody";
+			console.log("Since you cannot decide, maybe you should check out this movie?");
 		}
+		console.log(movieStr);
+		request("http://www.omdbapi.com/?t="+movieStr+"&y=&plot=short&apikey=40e9cece", function(error, response, body) {
+			if (!error && response.statusCode === 200) {
+				let movieData = JSON.parse(body);
+				console.log("Movie Title:  ",movieData.Title);
+				console.log("Release Year: ",movieData.Year); 
+				console.log("IMDB Rating:  ",movieData.imdbRating);
+				console.log("R.T. Rating:  ",movieData.Ratings);
+				console.log("Country:      ",movieData.Country);
+				console.log("Language:     ",movieData.Language);
+				console.log("Actors:       ",movieData.Actors);
+				console.log("Plot:         ",movieData.Plot);
+			}
+		});
 		console.log("+++++++++++++++++++++++++++++++++");
 		console.log("+++++++++++++++++++++++++++++++++");
 		liri();
