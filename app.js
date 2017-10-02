@@ -1,6 +1,7 @@
 const myKeys = require("./keys.js")
 const inquirer = require("inquirer");
 const textFilePath = "random.txt";
+const logFilePath = "log.txt";
 
 //console.log(myKeys.spotifyKeys.ClientID);
 //console.log(myKeys.twitterKeys);
@@ -33,6 +34,14 @@ function liri(){
 				break;
 		}
 	})
+}
+
+logIt(logNote){
+	fs.appendFile(logFilePath, logNote, function(err) {
+		if (err) {
+			console.log(err);
+		}
+	});
 }
 
 function spotify(){
