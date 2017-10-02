@@ -1,5 +1,7 @@
-let myKeys = require("./keys.js")
-let inquirer = require("inquirer");
+const myKeys = require("./keys.js")
+const inquirer = require("inquirer");
+const textFilePath = "random.txt";
+
 //console.log(myKeys.spotifyKeys.ClientID);
 //console.log(myKeys.twitterKeys);
 liri()
@@ -26,6 +28,9 @@ function liri(){
 			case "MovieDatabase":
 				movieDB();
 				break;
+			case "TextToAction":
+				TextToAction();
+				break;
 		}
 	})
 }
@@ -34,7 +39,7 @@ function spotify(){
 	console.log("+++++++++++++++++++++++++++++++++");
 	console.log("++++++++++SPOTIFY CODE+++++++++++");
 	console.log("+++++++++++++++++++++++++++++++++");
-	let Spotify = require('node-spotify-api');
+	const Spotify = require('node-spotify-api');
 	let spotify = new Spotify(myKeys.spotifyKeys);
 	inquirer.prompt([
 	    {
@@ -80,7 +85,7 @@ function twitter(){
 	console.log("+++++++++++++++++++++++++++++++++");
 	console.log("++++++++++TWITTER CODE+++++++++++");
 	console.log("+++++++++++++++++++++++++++++++++");
-	let Twitter = require('twitter');
+	const Twitter = require('twitter');
 	let client = new Twitter(myKeys.twitterKeys);
 	client.get('statuses/user_timeline', {q: '@willreed1111'}, function(error, tweets, response) {
    		if(error) console.log(error);
@@ -98,7 +103,7 @@ function movieDB(){
 	console.log("+++++++++++++++++++++++++++++++++");
 	console.log("++++++++++++OMDB CODE++++++++++++");
 	console.log("+++++++++++++++++++++++++++++++++");
-	var request = require("request");
+	const request = require("request");
 	inquirer.prompt([
 	    {
 	      type: "input",
@@ -130,4 +135,30 @@ function movieDB(){
 		console.log("+++++++++++++++++++++++++++++++++");
 		liri();
 	})
+}
+
+function TextToAction(){
+	console.log("+++++++++++++++++++++++++++++++++");
+	console.log("+++++++TextToAction CODE+++++++++");
+	console.log("+++++++++++++++++++++++++++++++++");
+	const fs = require("fs");
+	fs.readFile(textFilePath, "utf8", function(error, data) {
+		if (error) {
+			return console.log("There was an error reading your file: ",error);
+		}
+		console.log(data);
+		var dataArr = data.split(",");
+		console.log(dataArr);
+		switch(dataArr[0]){
+			case "Spotify":
+				spotify();
+				break;
+			case "Twitter":
+				twitter();
+				break;
+			case "MovieDatabase":
+				movieDB();
+				break;
+		}
+	});
 }
